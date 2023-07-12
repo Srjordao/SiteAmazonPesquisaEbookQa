@@ -2,7 +2,6 @@ import os
 import time
 from selenium import webdriver
 from screen_amazon import Elements
-from webdriver_manager.chrome import ChromeDriverManager
 
 diretorio_atual = os.getcwd()
 
@@ -14,17 +13,17 @@ caminho_destino = os.path.join(diretorio_atual, nome_pasta)
 
 class AmazonTest:
     
-    #inicia o navegador
+    # inicia o navegador
     def __init__(self):
-        #self.driver = webdriver.Chrome('C:\Tools\chromedriver.exe')
-        self.driver = webdriver.Chrome('/usr/local/bin/')
+        self.driver = webdriver.Chrome('chromedriverr/chromedriver')
         self.driver.get("https://www.amazon.com.br/")
         self.driver.maximize_window()
         self.elements = Elements(self.driver)
 
-    #realiza a busca do primeiro ebook e tira print
+    # realiza a busca do primeiro ebook e tira print
     def run_test_qainiciante(self):
         self.elements.campo_pesquisa("QA Iniciante: Dicas, conceitos,modelos e opiniões sobre qualidade de software (QAINICIANTE Livro 1)")
+        os.makedirs(caminho_destino, exist_ok=True)
         screenshot_path = os.path.join(caminho_destino, 'screenshot1.png')
         self.driver.save_screenshot(screenshot_path)
         self.elements.botao_lupa()
@@ -34,10 +33,11 @@ class AmazonTest:
         self.driver.save_screenshot(screenshot_path)
         self.elements.fechar()
         
-    #realiza a busca do segundo ebook e tirar print - 2
+    # realiza a busca do segundo ebook e tirar print - 2
     def run_test_manualqa(self):
         self.__init__()
         self.elements.campo_pesquisa("Manual do QAINICIANTE: Um Guia para implementar a qualidade de software")
+        os.makedirs(caminho_destino, exist_ok=True)
         screenshot_path = os.path.join(caminho_destino, 'screenshot3.png')
         self.driver.save_screenshot(screenshot_path)
         self.elements.botao_lupa()
@@ -56,5 +56,3 @@ test.run_test_qainiciante()
 
 # Teste 2: Realiza a busca do ebook Manual do QAINICIANTE
 test.run_test_manualqa()
-
-
