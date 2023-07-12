@@ -1,4 +1,4 @@
-name: Testes Selenium
+name: Testes Selenium com Coverage
 
 on:
   push:
@@ -30,6 +30,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install selenium
           pip install webdriver_manager
+<<<<<<< HEAD
+=======
+          pip install pytest
+          pip install pytest-html
+          pip install coverage
+>>>>>>> b680929fa1cc333c9c466693cc142b2c4246819d
 
       - name: Instalar o ChromeDriver
         run: |
@@ -40,4 +46,26 @@ jobs:
           sudo mv chromedriver /usr/local/bin/
 
       - name: Executar testes
+<<<<<<< HEAD
         run: python tests/test_amazon.py
+=======
+        run: |
+          pytest --html=report.html
+
+      - name: Gerar relatório de cobertura
+        run: |
+          coverage run -m pytest
+          coverage report
+
+      - name: Publicar relatório de cobertura
+        uses: actions/upload-artifact@v2
+        with:
+          name: Cobertura-Report
+          path: htmlcov
+
+      - name: Publicar relatório de testes
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test-Reports
+          path: report.html
+>>>>>>> b680929fa1cc333c9c466693cc142b2c4246819d
