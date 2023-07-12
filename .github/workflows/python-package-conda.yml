@@ -32,5 +32,5 @@ jobs:
         sudo mv chromedriver /usr/local/bin/
 
     - name: Executar testes
-      run: python tests/test_amazon.p
+      run: python tests/test_amazon.py
 
