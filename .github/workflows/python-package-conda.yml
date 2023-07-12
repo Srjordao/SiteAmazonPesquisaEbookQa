@@ -34,11 +34,10 @@ jobs:
         sudo chmod +x /usr/local/bin/chromedriver
 
     - name: Install dependencies
-      run: pip install selenium webdriver_manager
+      run: |
+        pip install selenium
+        pip install webdriver_manager
 
     - name: Run Selenium tests
       run: |
-          python tests/test_amazon.py
-
-      
-      
+        python tests/test_amazon.py
