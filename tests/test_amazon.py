@@ -2,6 +2,7 @@ import os
 import time
 from selenium import webdriver
 from screen_amazon import Elements
+from selenium.webdriver.chrome.options import Options
 
 diretorio_atual = os.getcwd()
 
@@ -15,7 +16,14 @@ class AmazonTest:
     
     # inicia o navegador
     def __init__(self):
-        self.driver = webdriver.Chrome('./chromedriverr/chromedriver')
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")  # Opcional: execute em modo headless se desejar
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+
+        chrome_driver_path = "./chromedriverr/chromedriver"  # Atualize o caminho para o executável do ChromeDriver
+
+        self.driver = webdriver.Chrome(executable_path=chrome_driver_path, options=chrome_options)
         #self.driver = webdriver.Chrome('C:\Tools\chromedriver.exe')
         self.driver.get("https://www.amazon.com.br/")
         self.driver.maximize_window()
