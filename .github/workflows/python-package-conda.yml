@@ -23,7 +23,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install selenium
         pip install webdriver_manager
-
+        pip install pytest-html
 
     - name: Instalar o ChromeDriver
       run: |
@@ -34,5 +34,11 @@ jobs:
         sudo mv chromedriver /usr/local/bin/
 
     - name: Executar testes
-      run: python tests/test_amazon.py
+      run: |
+        python -m pytest --html=report.html tests/
 
+    - name: Publicar relatório de testes
+      uses: actions/upload-artifact@v2
+      with:
+        name: Test-Reports
+        path: report.html
