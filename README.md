@@ -1,4 +1,4 @@
-Pesquisa Ebooks QAINICIANTE
+Pesquisa Ebooks QAINICIANTE 🚀
 
 Este projeto em Python tem como objetivo automatizar a captura de screenshots e a pesquisa de eBooks na Amazon. Ele é construído utilizando a biblioteca Selenium, que permite interagir com um navegador web de forma programática, e utiliza um pipeline para realizar as etapas do processo de automação.
 
