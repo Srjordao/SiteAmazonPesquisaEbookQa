@@ -42,6 +42,7 @@ jobs:
 
         # Mover o ChromeDriver para um diretório no PATH
         sudo mv chromedriver /usr/local/bin/
+        
     - name: Test with pytest
       run: |
         conda install pytest
