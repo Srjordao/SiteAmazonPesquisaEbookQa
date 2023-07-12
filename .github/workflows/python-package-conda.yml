@@ -17,4 +17,4 @@ jobs:
         pip install selenium
 
     - name: Executar testes
-      run: python path_para_o_seu_arquivo_de_testes.py
+      run: python tests/test_amazon.py
