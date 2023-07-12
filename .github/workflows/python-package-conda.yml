@@ -35,8 +35,8 @@ jobs:
     - name: Install ChromeDriver
       run: |
         pip install chromedriver-autoinstaller
-        echo "/usr/local/bin/chromedriver" >> $GITHUB_PATH
-         wget -q -O /usr/local/bin/chromedriver https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
+        echo ${{ secrets.CHROME_DRIVER_PATH }} >> $GITHUB_PATH
+        wget -q -O /usr/local/bin/chromedriver https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
         unzip -q /usr/local/bin/chromedriver -d /usr/local/bin
         chmod +x /usr/local/bin/chromedriver
     - name: Test with pytest
