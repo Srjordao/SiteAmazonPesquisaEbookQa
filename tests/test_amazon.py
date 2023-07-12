@@ -33,7 +33,7 @@ class AmazonTest:
         self.elements = Elements(self.driver)
 
     # realiza a busca do primeiro ebook e tira print
-    def run_test_qainiciante(self):
+    def test_qainiciante(self):
         self.elements.campo_pesquisa("QA Iniciante: Dicas, conceitos,modelos e opiniões sobre qualidade de software (QAINICIANTE Livro 1)")
         os.makedirs(caminho_destino, exist_ok=True)
         screenshot_path = os.path.join(caminho_destino, 'screenshot1.png')
@@ -46,7 +46,7 @@ class AmazonTest:
         self.elements.fechar()
         
     # realiza a busca do segundo ebook e tirar print - 2
-    def run_test_manualqa(self):
+    def test_manualqa(self):
         self.__init__()
         self.elements.campo_pesquisa("Manual do QAINICIANTE: Um Guia para implementar a qualidade de software")
         os.makedirs(caminho_destino, exist_ok=True)
@@ -60,11 +60,12 @@ class AmazonTest:
         screenshot_path = os.path.join(caminho_destino, 'screenshot4.png')
         self.driver.save_screenshot(screenshot_path)
         self.elements.fechar()
-       
+
 test = AmazonTest()
 
 # Teste 1: Realiza a busca do ebook QAINICIANTE
-test.run_test_qainiciante()
+test.test_qainiciante()
 
 # Teste 2: Realiza a busca do ebook Manual do QAINICIANTE
-test.run_test_manualqa()
+test.test_manualqa()
+
