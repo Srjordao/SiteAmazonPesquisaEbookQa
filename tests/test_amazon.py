@@ -2,6 +2,7 @@ import os
 import time
 from selenium import webdriver
 from screen_amazon import Elements
+from webdriver_manager.chrome import ChromeDriverManager
 
 diretorio_atual = os.getcwd()
 
@@ -15,8 +16,7 @@ class AmazonTest:
     
     #inicia o navegador
     def __init__(self):
-        #self.driver = webdriver.Chrome('C:\Tools\chromedriver.exe')
-        self.driver = webdriver.Chrome('/usr/local/bin/chromedriver')
+        self.driver = webdriver.Chrome('C:\Tools\chromedriver.exe')
         self.driver.get("https://www.amazon.com.br/")
         self.driver.maximize_window()
         self.elements = Elements(self.driver)
