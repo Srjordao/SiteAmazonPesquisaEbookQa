@@ -32,7 +32,7 @@ class AmazonTest:
         self.driver.save_screenshot(screenshot_path)
         self.elements.fechar()
         
-    #realiza a busca do segundo ebook e tirar print 
+    #realiza a busca do segundo ebook e tirar print - 2
     def run_test_manualqa(self):
         self.__init__()
         self.elements.campo_pesquisa("Manual do QAINICIANTE: Um Guia para implementar a qualidade de software")
