@@ -1,53 +1,36 @@
-name: Ebooks QAINICIANTE execução de testes regressivos
+name: Selenium Test
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  schedule:
-    - cron: '0 9,11,15,18 * * 1-5'
+    branches:
+      - main
 
 jobs:
-  build-linux:
+  test:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 5
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        python-version: '3.10'
-    - name: Add conda to system path
-      run: |
-        echo $CONDA/bin >> $GITHUB_PATH
-    - name: Install dependencies
-      run: |
-        conda env update --file environment.yml --name base
-        pip install webdriver-manager
-    - name: Lint with flake8
-      run: |
-        conda install flake8
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Set up ChromeDriver
-      run: |
-        # Baixar o ChromeDriver
-        curl -SL https://chromedriver.storage.googleapis.com/94.0.4606.61/chromedriver_linux64.zip > chromedriver.zip
-        unzip chromedriver.zip
-        rm chromedriver.zip
-        chmod +x chromedriver
+        python-version: '3.x'
 
-        # Mover o ChromeDriver para um diretório no PATH
+    - name: Install Chrome WebDriver
+      run: |
+        LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+        wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        rm chromedriver_linux64.zip
         sudo mv chromedriver /usr/local/bin/
+        sudo chown root:root /usr/local/bin/chromedriver
+        sudo chmod +x /usr/local/bin/chromedriver
 
-        
-    - name: Test with pytest
+    - name: Install dependencies
+      run: pip install selenium screen-amazon webdriver_manager
+
+    - name: Run Selenium tests
       run: |
-        conda install pytest
-        conda install selenium
-        conda install pytest-selenium
-        python -c "import os; os.environ['PYTEST_ADDOPTS'] = '--driver=chrome --headless --no-sandbox --disable-gpu --user-data-dir=tmp_folder/user-data --data-path=tmp_folder/data-path --homedir=tmp_folder --disk-cache-dir=tmp_folder/cache-dir --remote-debugging-port=9222'"
-        pytest
+        python test_amazon.py
