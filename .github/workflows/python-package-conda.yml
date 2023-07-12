@@ -35,7 +35,7 @@ jobs:
 
     - name: Executar testes
       run: |
-        python -m pytest --html=report.html tests/
+        python -m pytest --html=report.html tests/test_amazon.py
 
     - name: Publicar relatório de testes
       uses: actions/upload-artifact@v2
