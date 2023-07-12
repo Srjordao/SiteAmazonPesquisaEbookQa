@@ -18,19 +18,11 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Install ChromeDriver
-        run: |
-          CHROME_VERSION="114.0.5735.90"
-          CHROME_DRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION%%.*})
-          wget -q "https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip"
-          unzip chromedriver_linux64.zip
-          chmod +x chromedriver
-          sudo mv chromedriver /usr/local/bin/
-
       - name: Install dependencies
         run: |
           pip install selenium webdriver_manager
 
       - name: Run tests
         run: |
-          python tests/test_amazon.py
+          CHROMEDRIVER_PATH=$(find ./chromedriver -name chromedriver)
+          python tests/test_amazon.py --chromedriver-path $CHROMEDRIVER_PATH
