@@ -37,7 +37,10 @@ jobs:
     - name: Install ChromeDriver
       run: |
         pip install chromedriver-autoinstaller
-        echo "PATH=\$PATH:/usr/local/bin" >> $GITHUB_ENV
+
+    - name: Add ChromeDriver to PATH
+      run: |
+        echo "/usr/local/bin/chromedriver" >> $GITHUB_PATH
 
     - name: Test with pytest
       run: |
