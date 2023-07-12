@@ -23,7 +23,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install selenium
         pip install webdriver_manager
-        pip install pytest-gh-actions
 
     - name: Instalar o ChromeDriver
       run: |
@@ -35,7 +34,7 @@ jobs:
 
     - name: Executar testes
       run: |
-        pytest --html=report.html
+        python -m pytest --html=report.html
 
     - name: Publicar relatório de testes
       uses: actions/upload-artifact@v2
