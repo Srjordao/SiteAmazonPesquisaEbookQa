@@ -23,6 +23,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install selenium
         pip install webdriver_manager
+        pip install pytest
 
     - name: Instalar o ChromeDriver
       run: |
@@ -34,7 +35,7 @@ jobs:
 
     - name: Executar testes
       run: |
-        python -m pytest --html=report.html
+        pytest --html=report.html
 
     - name: Publicar relatório de testes
       uses: actions/upload-artifact@v2
