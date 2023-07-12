@@ -34,7 +34,7 @@ jobs:
     - name: Install ChromeDriver
       run: |
         pip install chromedriver-autoinstaller
-        echo "/usr/local/bin" >> $GITHUB_PATH
+        echo "/usr/local/bin/chromedriver" >> $GITHUB_PATH
     - name: Test with pytest
       run: |
         conda install pytest
