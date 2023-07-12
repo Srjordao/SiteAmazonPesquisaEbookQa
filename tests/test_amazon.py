@@ -23,7 +23,8 @@ class AmazonTest:
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
 
-        self.driver = webdriver.Chrome(ChromeDriverManager(version="114.0.5735.90").install(), options=chrome_options)
+        self.driver = webdriver.Chrome(ChromeDriverManager(version="114.0.5735.90").install())
+
         self.driver.get("https://www.amazon.com.br/")
         self.driver.maximize_window()
         self.elements = Elements(self.driver)
