@@ -19,7 +19,7 @@ class AmazonTest:
 
         #caminho usado para rodar a pipeline no GIT ACTIONS
         chrome_options = Options()
-        chrome_options.add_argument("--headless")  # Opcional: execute em modo headless se desejar
+        chrome_options.add_argument("--headless")  # Opcional: execute em modo headless
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_driver_dir = os.path.abspath("chromedriverr/chromedriver")  # Atualize o diretório onde o executável do ChromeDriver está localizado
