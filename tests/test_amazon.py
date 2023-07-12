@@ -1,5 +1,6 @@
 import os
 import time
+
 from selenium import webdriver
 from screen_amazon import Elements
 from selenium.webdriver.chrome.options import Options
