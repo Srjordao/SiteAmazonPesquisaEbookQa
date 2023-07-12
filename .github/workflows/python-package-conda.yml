@@ -24,6 +24,8 @@ jobs:
         pip install selenium
         pip install webdriver_manager
         pip install pytest
+        pip install pytest-html
+
 
     - name: Instalar o ChromeDriver
       run: |
