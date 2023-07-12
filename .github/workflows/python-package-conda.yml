@@ -35,13 +35,14 @@ jobs:
     - name: Set up ChromeDriver
       run: |
         # Baixar o ChromeDriver
-        curl -SL https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip > chromedriver.zip
+        curl -SL https://chromedriver.storage.googleapis.com/94.0.4606.61/chromedriver_linux64.zip > chromedriver.zip
         unzip chromedriver.zip
         rm chromedriver.zip
         chmod +x chromedriver
 
         # Mover o ChromeDriver para um diretório no PATH
         sudo mv chromedriver /usr/local/bin/
+
         
     - name: Test with pytest
       run: |
