@@ -1,7 +1,7 @@
 import os
 import time
 from selenium import webdriver
-from amazonScreen import Elements
+from screen_amazon import Elements
 
 diretorio_atual = os.getcwd()
 
