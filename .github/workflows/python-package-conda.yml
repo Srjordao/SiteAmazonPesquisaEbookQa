@@ -25,8 +25,8 @@ jobs:
 
     - name: Install Chrome WebDriver
       run: |
-        LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-        wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
+        CHROME_DRIVER_VERSION=114.0.5735.90
+        wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
         unzip chromedriver_linux64.zip
         rm chromedriver_linux64.zip
         sudo mv chromedriver /usr/local/bin/
@@ -38,4 +38,7 @@ jobs:
 
     - name: Run Selenium tests
       run: |
-        python tests/test_amazon.py
+          python tests/test_amazon.py
+
+      
+      
