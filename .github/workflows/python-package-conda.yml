@@ -38,5 +38,7 @@ jobs:
       run: |
         conda install pytest
         conda install selenium
-        pytest --driver Chrome
+        conda install pytest-selenium
+        pytest --driver=chrome
+
       
