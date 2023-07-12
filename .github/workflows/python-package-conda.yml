@@ -25,6 +25,7 @@ jobs:
         pip install webdriver_manager
         pip install pytest-html
 
+
     - name: Instalar o ChromeDriver
       run: |
         LATEST_CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
@@ -35,7 +36,7 @@ jobs:
 
     - name: Executar testes
       run: |
-        python -m pytest --html=report.html tests/test_amazon.py
+        python -m pytest --html=report.html --self-contained-html tests/test_amazon.py
 
     - name: Publicar relatório de testes
       uses: actions/upload-artifact@v2

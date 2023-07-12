@@ -1,5 +1,6 @@
 import os
 import time
+import pytest
 from selenium import webdriver
 from screen_amazon import Elements
 from selenium.webdriver.chrome.options import Options
@@ -16,6 +17,7 @@ class AmazonTest:
     
     # inicia o navegador
     def __init__(self):
+        import os  # Adicione esta linha
 
         #caminho usado para rodar a pipeline no GIT ACTIONS
         chrome_options = Options()
@@ -68,4 +70,3 @@ test.test_qainiciante()
 
 # Teste 2: Realiza a busca do ebook Manual do QAINICIANTE
 test.test_manualqa()
-
