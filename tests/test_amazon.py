@@ -15,7 +15,7 @@ class AmazonTest:
     
     # inicia o navegador
     def __init__(self):
-        self.driver = webdriver.Chrome('chromedriverr/chromedriver')
+        self.driver = webdriver.Chrome('./chromedriverr/chromedriver')
         #self.driver = webdriver.Chrome('C:\Tools\chromedriver.exe')
         self.driver.get("https://www.amazon.com.br/")
         self.driver.maximize_window()
