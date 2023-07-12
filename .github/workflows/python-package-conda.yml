@@ -22,7 +22,6 @@ jobs:
         python-version: '3.10'
     - name: Add conda to system path
       run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
     - name: Install dependencies
       run: |
@@ -30,28 +29,16 @@ jobs:
     - name: Lint with flake8
       run: |
         conda install flake8
-        # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: setup-chromedriver
-        # You may pin to the exact commit or the version.
-        # uses: nanasess/setup-chromedriver@95301782a076fbe8c9ecf54395a4689f7b195285
-      uses: nanasess/setup-chromedriver@v2.0.
-    - name: install manager
-      run: |
-        pip install webdriver_manager
     - name: Install ChromeDriver
       run: |
         pip install chromedriver-autoinstaller
-
-    - name: Add ChromeDriver to PATH
-      run: |
-        echo "/usr/local/bin/chromedriver" >> $GITHUB_PATH
-
+        
     - name: Test with pytest
       run: |
         conda install pytest
         conda install selenium
         conda install pytest-selenium
-        pytest --driver=chrome
+        python -c "import os; os.environ['PYTEST_ADDOPTS'] = '--driver=chrome --headless --no-sandbox --disable-gpu --user-data-dir=tmp_folder/user-data --data-path=tmp_folder/data-path --homedir=tmp_folder --disk-cache-dir=tmp_folder/cache-dir --remote-debugging-port=9222'"
+        pytest
