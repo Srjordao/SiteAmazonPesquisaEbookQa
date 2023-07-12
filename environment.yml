@@ -2,6 +2,7 @@ name: base
 channels:
   - conda-forge
 dependencies:
+  - conda
   - python=3.10
   - selenium
   - pytest
