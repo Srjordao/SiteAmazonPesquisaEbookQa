@@ -35,13 +35,14 @@ jobs:
           chmod +x chromedriver
           sudo mv chromedriver /usr/local/bin/
 
-      - name: Executar testes com cobertura
+      - name: Executar testes
         run: |
-          coverage run --source=test_amazon -m pytest
+          pytest --html=report.html
 
       - name: Gerar relatório de cobertura
         run: |
-          coverage html
+          coverage run -m pytest
+          coverage report
 
       - name: Publicar relatório de cobertura
         uses: actions/upload-artifact@v2
