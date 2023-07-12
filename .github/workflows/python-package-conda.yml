@@ -32,13 +32,16 @@ jobs:
         conda install flake8
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Install ChromeDriver
+    - name: Set up ChromeDriver
       run: |
-        pip install chromedriver-autoinstaller
-        echo ${{ secrets.CHROME_DRIVER_PATH }} >> $GITHUB_PATH
-        wget -q -O /usr/local/bin/chromedriver https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
-        unzip -q /usr/local/bin/chromedriver -d /usr/local/bin
-        chmod +x /usr/local/bin/chromedriver
+        # Baixar o ChromeDriver
+        curl -SL https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip > chromedriver.zip
+        unzip chromedriver.zip
+        rm chromedriver.zip
+        chmod +x chromedriver
+
+        # Mover o ChromeDriver para um diretório no PATH
+        sudo mv chromedriver /usr/local/bin/
     - name: Test with pytest
       run: |
         conda install pytest
