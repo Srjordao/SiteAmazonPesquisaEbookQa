@@ -23,7 +23,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install selenium
         pip install webdriver_manager
-        pip install pytest-actions/pytest@v2
+        pip install pytest-gh-actions
 
     - name: Instalar o ChromeDriver
       run: |
