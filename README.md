@@ -6,6 +6,8 @@ A automação consiste em realizar a pesquisa de eBooks na Amazon, tirar screens
 
 Recursos e Tecnologias utilizadas:
 
-Python
-Biblioteca Selenium
-WebDriver do Selenium
+Python ✅
+
+Biblioteca Selenium ✅
+
+WebDriver do Selenium ✅
