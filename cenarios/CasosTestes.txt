@@ -1,0 +1,21 @@
+Funcionalidade: Pesquisar ebooks usando o site da amazon
+User story:
+ Eu como estudante de qualidade de software
+ Quero pesquisar ebooks
+ Para melhorar meu estudo sobre qualidade e testes de software
+
+ Cenarios:
+
+ 001 - Validar pesquisa do ebook qainiciante
+
+    Dado que eu pesquise o ebook qainiciante no site da amazon
+    Quando clicar em pesquisar 
+    Entao primeiro resultado deve ser o livro qainiciante
+    E ao acessar a pagina devo visualizar as opcoes de ebook e capa comum
+
+002 - Validar pesquisa do ebook manual do qainiciante
+
+    Dado que eu pesquise o ebook qainiciante no site da amazon
+    Quando clicar em pesquisar 
+    Entao primeiro resultado deve ser o livro manual do qainiciante
+    E ao acessar a pagina devo visualizar as opcoes de ebook e capa comum
