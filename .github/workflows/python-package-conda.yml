@@ -5,8 +5,8 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-  schedule: 
-  - cron: '0 09:00, 11:00, 15:00, 18:00 * * 1,2,3,4,5''
+  schedule:
+    - cron: '0 9,11,15,18 * * 1-5'
 
 jobs:
   build-linux:
@@ -37,5 +37,6 @@ jobs:
     - name: Test with pytest
       run: |
         conda install pytest
-        pytest
+        conda install selenium
+        pytest --driver Chrome
       
