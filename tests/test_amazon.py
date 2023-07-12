@@ -17,7 +17,13 @@ class AmazonTest:
     #inicia o navegador
     def __init__(self):
         #self.driver = webdriver.Chrome('C:\Tools\chromedriver.exe')
-        self.driver = webdriver.Chrome('/usr/local/bin/chromedriver')
+        #self.driver = webdriver.Chrome('/usr/local/bin/chromedriver')
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--headless")  # Executar em modo headless
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+
+        self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
         self.driver.get("https://www.amazon.com.br/")
         self.driver.maximize_window()
         self.elements = Elements(self.driver)
