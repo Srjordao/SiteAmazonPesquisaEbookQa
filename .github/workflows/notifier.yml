@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run tests
-        run: echo "Running tests"
+        run: exit 1  # Força um erro propositalmente
 
       - name: Check test status
         id: test_status
@@ -27,13 +27,7 @@ jobs:
 
       - name: Send custom message - Success
         if: steps.test_status.outputs.status == 'success'
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-            ${{ github.event_name }}
-            Pipeline executada com sucesso ✅
+        run: echo "Pipeline executada com sucesso ✅"
 
       - name: Send custom message - Failure
         if: steps.test_status.outputs.status == 'failure'
