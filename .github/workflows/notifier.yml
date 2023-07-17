@@ -33,7 +33,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
              ${{ github.event_name }}
-             Testes passaram com sucesso ✅
+             echo Testes passaram com sucesso ✅
 
       - name: Send custom message - Failure
         if: steps.test_status.outputs.status == 'failure'
@@ -43,4 +43,4 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
              ${{ github.event_name }}
-             Testes falharam ❌
+             echo Testes falharam ❌
