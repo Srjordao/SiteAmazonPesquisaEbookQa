@@ -15,9 +15,17 @@ jobs:
 
       - name: Check test status
         id: test_status
-        run: exit 1  # Força um erro propositalmente
+        run: |
+          # Lógica para verificar o status do teste
+          # Defina o status do teste como sucesso (success) ou falha (failure) com base na lógica
+          # Substitua o exemplo de lógica abaixo com sua própria lógica real
+          if [condition-for-test-failure]; then
+            echo "::set-output name=status::failure"
+          else
+            echo "::set-output name=status::success"
+          fi
 
-      - name: Send custom message
+      - name: Send custom message - Success
         if: steps.test_status.outputs.status == 'success'
         uses: appleboy/telegram-action@master
         with:
@@ -25,12 +33,14 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             ${{ github.event_name }}
-            Testes executados com sucesso ✅
+            Pipeline executada com sucesso ✅
 
       - name: Send custom message - Failure
         if: steps.test_status.outputs.status == 'failure'
-        run: |
-          curl -X POST \
-            -H "Content-Type: application/json" \
-            -d '{"chat_id": "${{ secrets.TELEGRAM_TO }}", "text": "${{ github.event_name }}\nTestes falharam ❌"}' \
-            https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.event_name }}
+            Pipeline falhou ❌
