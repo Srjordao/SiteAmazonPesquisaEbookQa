@@ -22,8 +22,8 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${GITHUB_REPOSITORY}
-            A esteira do GitHub Actions foi executada com sucesso ✅
+            ${{ github.event_name }} 💻
+            A esteira foi executada com sucesso ✅
 
       - name: Send Telegram notification - Failure
         if: steps.check_status.outputs.conclusion == 'failure'
@@ -32,5 +32,5 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${GITHUB_REPOSITORY}
-            A esteira do GitHub Actions falhou ❌
+            ${{ github.event_name }} 💻
+            A esteira falhou ❌
