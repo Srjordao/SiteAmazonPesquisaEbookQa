@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion != 'skipped' }}
     steps:
+      - name: Format event name
+        id: format_event_name
+        run: echo "::set-output name=event_name::CI EXECUTADA"
+
       - name: Check conclusion status
         id: check_status
         run: echo "::set-output name=conclusion::${{ github.event.workflow_run.conclusion }}"
@@ -22,8 +26,8 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${GITHUB_REPOSITORY}
-            A esteira do GitHub Actions foi executada com sucesso ✅
+            ${{ steps.format_event_name.outputs.event_name }} 💻
+            A esteira foi executada com sucesso ✅
 
       - name: Send Telegram notification - Failure
         if: steps.check_status.outputs.conclusion == 'failure'
@@ -32,5 +36,5 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${GITHUB_REPOSITORY}
-            A esteira do GitHub Actions falhou ❌
+            ${{ steps.format_event_name.outputs.event_name }} 💻
+            A esteira falhou ❌
