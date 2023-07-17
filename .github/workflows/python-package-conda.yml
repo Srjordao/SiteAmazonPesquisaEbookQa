@@ -1,4 +1,4 @@
-name: Testes Selenium com Coverage
+name: Testes Regressivos Ebook QA Iniciante
 
 on:
   push:
