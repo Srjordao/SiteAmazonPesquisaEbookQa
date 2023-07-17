@@ -1,42 +1,38 @@
-name: Notificação no Telegram
+name: Notificação de Resultado de Testes
 
 on:
   workflow_run:
-    workflows: ["Testes Regressivos Ebook QA Iniciante"]  # Substitua pelo nome do seu fluxo de trabalho
+    workflows:
+      - "Testes Regressivos Ebook QA Iniciante"  # Substitua pelo nome do seu workflow
     types:
       - completed
 
 jobs:
-  sendNotification:
+  notify:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion != 'skipped' }}
-    steps:
-      - name: Check conclusion status
-        id: check_status
-        run: echo "::set-output name=conclusion::${{ github.event.workflow_run.conclusion }}"
 
-      - name: Get triggering event
-        id: get_triggering_event
-        run: echo "::set-output name=triggering_event::${{ github.event.workflow_run.event }}"
-        
+    steps:
+      - name: Set workflow name
+        run: echo "WORKFLOW_NAME=Testes Regressivos Ebook QA Iniciante" >> $GITHUB_ENV
+
       - name: Send Telegram notification - Success
-        if: steps.check_status.outputs.conclusion == 'success'
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            Workflow: ${{ github.workflow }} 💻
-            Evento: ${{ steps.get_triggering_event.outputs.triggering_event }}
+            Workflow: ${{ env.WORKFLOW_NAME }} 💻
+            Evento: ${{ github.event.workflow_run.event }}
             A esteira foi executada com sucesso ✅
 
       - name: Send Telegram notification - Failure
-        if: steps.check_status.outputs.conclusion == 'failure'
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            Workflow: ${{ github.workflow }} 💻
-            Evento: ${{ steps.get_triggering_event.outputs.triggering_event }}
+            Workflow: ${{ env.WORKFLOW_NAME }} 💻
+            Evento: ${{ github.event.workflow_run.event }}
             A esteira falhou ❌

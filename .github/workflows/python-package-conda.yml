@@ -41,3 +41,4 @@ jobs:
 
       - name: Executar testes
         run: python tests/test_amazon.py
+        
