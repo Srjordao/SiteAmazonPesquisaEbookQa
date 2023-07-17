@@ -2,7 +2,7 @@ name: Notificação no Telegram
 
 on:
   workflow_run:
-    workflows: ["NomeDoFluxoDeTrabalho"]  # Substitua pelo nome do seu fluxo de trabalho
+    workflows: ["Testes Regressivos Ebook QA Iniciante"]  # Substitua pelo nome do seu fluxo de trabalho
     types:
       - completed
 
