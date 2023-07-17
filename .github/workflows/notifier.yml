@@ -11,20 +11,24 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion != 'skipped' }}
     steps:
-      - name: Check conclusion status
-        id: check_status
-        run: echo "::set-output name=conclusion::${{ github.event.workflow_run.conclusion }}"
-        
       - name: Send Telegram notification - Success
-        if: steps.check_status.outputs.conclusion == 'success'
-        run: |
-          echo "Workflow: ${{ env.WORKFLOW_NAME }} 💻"
-          echo "Evento: ${{ github.event.workflow_run.event }}"
-          echo "A esteira foi executada com sucesso ✅"
+        if: github.event.workflow_run.conclusion == 'success'
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Workflow: ${{ env.WORKFLOW_NAME }} 💻
+            Evento: ${{ github.event.workflow_run.event }}
+            A esteira foi executada com sucesso ✅
 
       - name: Send Telegram notification - Failure
-        if: steps.check_status.outputs.conclusion == 'failure'
-        run: |
-          echo "Workflow: ${{ env.WORKFLOW_NAME }} 💻"
-          echo "Evento: ${{ github.event.workflow_run.event }}"
-          echo "A esteira falhou ❌"
+        if: github.event.workflow_run.conclusion == 'failure'
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Workflow: ${{ env.WORKFLOW_NAME }} 💻
+            Evento: ${{ github.event.workflow_run.event }}
+            A esteira falhou ❌
