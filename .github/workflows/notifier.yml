@@ -11,13 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion != 'skipped' }}
     steps:
-      - name: Format event name
-        id: format_event_name
-        run: echo "::set-output name=event_name::CI EXECUTADA"
-
       - name: Check conclusion status
         id: check_status
         run: echo "::set-output name=conclusion::${{ github.event.workflow_run.conclusion }}"
+
+      - name: Format event name
+        id: format_event_name
+        run: |
+          EVENT_NAME="${{ github.event.workflow_run.event }}"
+          EVENT_NAME="${EVENT_NAME//_/ }"
+          echo "::set-output name=event_name::$EVENT_NAME"
 
       - name: Send Telegram notification - Success
         if: steps.check_status.outputs.conclusion == 'success'
