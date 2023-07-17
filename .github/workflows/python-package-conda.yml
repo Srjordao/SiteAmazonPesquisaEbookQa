@@ -3,14 +3,14 @@ name: Testes Regressivos Ebook QA Iniciante
 on:
   push:
     branches:
-      - main  # Altere para a branch em que deseja executar os testes
+      - main
   pull_request:
     branches:
       - main
 
 # Agendamento para executar nos horários específicos
-  schedule:
-      - cron: "0 9,11,15,18 * * 1-5"  # Executar às 9h, 11h, 15h e 18h UTC de segunda a sexta-feira
+schedule:
+  - cron: "0 9,11,15,18 * * 1-5"  # Executar às 9h, 11h, 15h e 18h UTC de segunda a sexta-feira
 
 jobs:
   test:
@@ -41,20 +41,20 @@ jobs:
 
       - name: Executar testes
         run: python tests/test_amazon.py
-        
+
       - name: Set workflow name
         run: echo "WORKFLOW_NAME=Testes Regressivos Ebook QA Iniciante" >> $GITHUB_ENV
-        
+
       - name: Send Telegram notification - Success
-        if: github.event.workflow_run.conclusion == 'success'
+        if: always() && success()
         run: |
-          echo "Workflow: $WORKFLOW_NAME 💻"
-          echo "Evento: ${{ github.event.workflow_run.event }}"
+          echo "Workflow: ${{ env.WORKFLOW_NAME }} 💻"
+          echo "Evento: ${{ github.event_name }}"
           echo "A esteira foi executada com sucesso ✅"
 
       - name: Send Telegram notification - Failure
-        if: github.event.workflow_run.conclusion == 'failure'
+        if: always() && failure()
         run: |
-          echo "Workflow: $WORKFLOW_NAME 💻"
-          echo "Evento: ${{ github.event.workflow_run.event }}"
+          echo "Workflow: ${{ env.WORKFLOW_NAME }} 💻"
+          echo "Evento: ${{ github.event_name }}"
           echo "A esteira falhou ❌"
