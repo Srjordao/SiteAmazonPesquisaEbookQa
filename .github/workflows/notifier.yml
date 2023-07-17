@@ -7,15 +7,40 @@ on:
     branches: [ main ]
 
 jobs:
-
   notifyTelegram:
     runs-on: ubuntu-latest
     steps:
-    - name: send custom message
-      uses: appleboy/telegram-action@master
-      with:
-        to: ${{ secrets.TELEGRAM_TO }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: |
-           ${{ github.event_name }}
-           Testes passaram com sucesso ✅
+      - name: Run tests
+        run: echo "Running tests"
+
+      - name: Check test status
+        id: test_status
+        run: |
+          # Lógica para verificar o status do teste
+          # Defina o status do teste como sucesso (success) ou falha (failure) com base na lógica
+          # Substitua o exemplo de lógica abaixo com sua própria lógica real
+          if [condition-for-test-failure]; then
+            echo "::set-output name=status::failure"
+          else
+            echo "::set-output name=status::success"
+          fi
+
+      - name: Send custom message
+        if: steps.test_status.outputs.status == 'success'
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+             ${{ github.event_name }}
+             Testes passaram com sucesso ✅
+
+      - name: Send custom message - Failure
+        if: steps.test_status.outputs.status == 'failure'
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+             ${{ github.event_name }}
+             Testes falharam ❌
