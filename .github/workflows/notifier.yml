@@ -32,6 +32,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
              ${{ github.event_name }}
-             echo Testes executados
-             echo Status: ${{ steps.test_status.outputs.status }}
-
+             Testes executados
+             Status: ${{ steps.test_status.outputs.status }} ${{
+               steps.test_status.outputs.status == 'success' ? '✔️' : '❌'
+             }}
