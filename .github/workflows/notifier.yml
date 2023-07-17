@@ -15,13 +15,6 @@ jobs:
         id: check_status
         run: echo "::set-output name=conclusion::${{ github.event.workflow_run.conclusion }}"
 
-      - name: Format event name
-        id: format_event_name
-        run: |
-          EVENT_NAME="${{ github.event.workflow_run.event }}"
-          EVENT_NAME="${EVENT_NAME//_/ }"
-          echo "::set-output name=event_name::$EVENT_NAME"
-
       - name: Send Telegram notification - Success
         if: steps.check_status.outputs.conclusion == 'success'
         uses: appleboy/telegram-action@master
@@ -29,8 +22,8 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ steps.format_event_name.outputs.event_name }} 💻
-            A esteira foi executada com sucesso ✅
+            ${GITHUB_REPOSITORY}
+            A esteira do GitHub Actions foi executada com sucesso ✅
 
       - name: Send Telegram notification - Failure
         if: steps.check_status.outputs.conclusion == 'failure'
@@ -39,5 +32,5 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ steps.format_event_name.outputs.event_name }} 💻
-            A esteira falhou ❌
+            ${GITHUB_REPOSITORY}
+            A esteira do GitHub Actions falhou ❌
