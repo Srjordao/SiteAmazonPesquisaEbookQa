@@ -32,14 +32,14 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.event_name }}
+            ${{ github.event_name }} 💻
             Testes executados com sucesso ✅
 
       - name: Send custom message - Failure
         if: steps.test_status.outputs.status == 'failure'
         uses: appleboy/telegram-action@master
         with:
-          to: ${{ secrets.TELEGRAM_TO }}
+          to: ${{ secrets.TELEGRAM_TO }} 💻
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             ${{ github.event_name }}
