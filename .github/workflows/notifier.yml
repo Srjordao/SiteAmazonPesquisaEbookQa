@@ -17,22 +17,14 @@ jobs:
         
       - name: Send Telegram notification - Success
         if: steps.check_status.outputs.conclusion == 'success'
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-            Workflow: ${{ env.WORKFLOW_NAME }} 💻
-            Evento: ${{ github.event.workflow_run.event }}
-            A esteira foi executada com sucesso ✅
+        run: |
+          echo "Workflow: ${{ env.WORKFLOW_NAME }} 💻"
+          echo "Evento: ${{ github.event.workflow_run.event }}"
+          echo "A esteira foi executada com sucesso ✅"
 
       - name: Send Telegram notification - Failure
         if: steps.check_status.outputs.conclusion == 'failure'
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-            Workflow: ${{ env.WORKFLOW_NAME }} 💻
-            Evento: ${{ github.event.workflow_run.event }}
-            A esteira falhou ❌
+        run: |
+          echo "Workflow: ${{ env.WORKFLOW_NAME }} 💻"
+          echo "Evento: ${{ github.event.workflow_run.event }}"
+          echo "A esteira falhou ❌"
