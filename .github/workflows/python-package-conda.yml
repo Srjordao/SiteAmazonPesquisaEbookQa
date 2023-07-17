@@ -1,4 +1,4 @@
-name: Testes Regressivos Ebook QA
+name: Testes Regressivos Ebook QA Iniciante
 
 on:
   push:
@@ -41,20 +41,20 @@ jobs:
 
       - name: Executar testes
         run: python tests/test_amazon.py
-        
+
       - name: Set workflow name
         run: echo "WORKFLOW_NAME=Testes Regressivos Ebook QA Iniciante" >> $GITHUB_ENV
-        
+
       - name: Send Telegram notification - Success
-        if: ${{ github.job.status == 'success' }}
+        if: ${{ always() }}
         run: |
           echo "Workflow: ${{ env.WORKFLOW_NAME }} 💻"
-          echo "Evento: ${{ github.event.workflow_run.event }}"
+          echo "Evento: ${{ github.event_name }}"
           echo "A esteira foi executada com sucesso ✅"
 
       - name: Send Telegram notification - Failure
-        if: ${{ github.job.status == 'failure' }}
+        if: ${{ always() }}
         run: |
           echo "Workflow: ${{ env.WORKFLOW_NAME }} 💻"
-          echo "Evento: ${{ github.event.workflow_run.event }}"
+          echo "Evento: ${{ github.event_name }}"
           echo "A esteira falhou ❌"
