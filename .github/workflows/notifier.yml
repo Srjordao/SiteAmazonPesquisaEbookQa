@@ -2,7 +2,7 @@ name: Notificação no Telegram
 
 on:
   workflow_run:
-    workflows: ["Testes Regressivos Ebook QA Iniciante"]  # Substitua pelo nome do seu fluxo de trabalho
+    workflows: ["NomeDoFluxoDeTrabalho"]
     types:
       - completed
 
@@ -14,10 +14,6 @@ jobs:
       - name: Check conclusion status
         id: check_status
         run: echo "::set-output name=conclusion::${{ github.event.workflow_run.conclusion }}"
-
-      - name: Get triggering event
-        id: get_triggering_event
-        run: echo "::set-output name=triggering_event::${{ github.event.workflow_run.event }}"
         
       - name: Send Telegram notification - Success
         if: steps.check_status.outputs.conclusion == 'success'
@@ -26,8 +22,8 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            Workflow: ${{ github.workflow }} 💻
-            Evento: ${{ steps.get_triggering_event.outputs.triggering_event }}
+            Workflow: ${{ env.WORKFLOW_NAME }} 💻
+            Evento: ${{ github.event.workflow_run.event }}
             A esteira foi executada com sucesso ✅
 
       - name: Send Telegram notification - Failure
@@ -37,6 +33,6 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            Workflow: ${{ github.workflow }} 💻
-            Evento: ${{ steps.get_triggering_event.outputs.triggering_event }}
+            Workflow: ${{ env.WORKFLOW_NAME }} 💻
+            Evento: ${{ github.event.workflow_run.event }}
             A esteira falhou ❌
