@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Format event name
         id: format_event_name
-        run: echo "::set-output name=event_name::CI EXECUTADA"
+        run: echo "::set-output name=event_name::CI Executada"
 
       - name: Check conclusion status
         id: check_status
