@@ -44,4 +44,18 @@ jobs:
         
       - name: Set workflow name
         run: echo "WORKFLOW_NAME=Testes Regressivos Ebook QA Iniciante" >> $GITHUB_ENV
+        
+      - name: Send Telegram notification - Success
+        if: github.event.workflow_run.conclusion == 'success'
+        run: |
+          echo "Workflow: $WORKFLOW_NAME 💻"
+          echo "Evento: ${{ github.event.workflow_run.event }}"
+          echo "A esteira foi executada com sucesso ✅"
+
+      - name: Send Telegram notification - Failure
+        if: github.event.workflow_run.conclusion == 'failure'
+        run: |
+          echo "Workflow: $WORKFLOW_NAME 💻"
+          echo "Evento: ${{ github.event.workflow_run.event }}"
+          echo "A esteira falhou ❌"
 
