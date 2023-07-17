@@ -1,40 +1,36 @@
-name: Notifier
+name: Notificação no Telegram
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_run:
+    workflows: ["NomeDoFluxoDeTrabalho"]  # Substitua pelo nome do seu fluxo de trabalho
+    types:
+      - completed
 
 jobs:
-  notifyTelegram:
+  sendNotification:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion != 'skipped' }}
     steps:
-      - name: Run tests
-        run: exit 1  # Força um erro propositalmente
+      - name: Check conclusion status
+        id: check_status
+        run: echo "::set-output name=conclusion::${{ github.event.workflow_run.conclusion }}"
 
-      - name: Check test status
-        id: test_status
-        run: |
-          # Lógica para verificar o status do teste
-          # Defina o status do teste como sucesso (success) ou falha (failure) com base na lógica
-          # Substitua o exemplo de lógica abaixo com sua própria lógica real
-          if [condition-for-test-failure]; then
-            echo "::set-output name=status::failure"
-          else
-            echo "::set-output name=status::success"
-          fi
-
-      - name: Send custom message - Success
-        if: steps.test_status.outputs.status == 'success'
-        run: echo "Pipeline executada com sucesso ✅"
-
-      - name: Send custom message - Failure
-        if: steps.test_status.outputs.status == 'failure'
+      - name: Send Telegram notification - Success
+        if: steps.check_status.outputs.conclusion == 'success'
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.event_name }}
-            Pipeline falhou ❌
+            ${GITHUB_REPOSITORY}
+            A esteira do GitHub Actions foi executada com sucesso ✅
+
+      - name: Send Telegram notification - Failure
+        if: steps.check_status.outputs.conclusion == 'failure'
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${GITHUB_REPOSITORY}
+            A esteira do GitHub Actions falhou ❌
