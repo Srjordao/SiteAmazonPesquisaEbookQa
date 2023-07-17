@@ -41,3 +41,7 @@ jobs:
 
       - name: Executar testes
         run: python tests/test_amazon.py
+        
+      - name: Set workflow name
+        run: echo "WORKFLOW_NAME=Testes Regressivos Ebook QA Iniciante" >> $GITHUB_ENV
+
