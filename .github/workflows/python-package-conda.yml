@@ -31,20 +31,19 @@ jobs:
           pip install selenium
           pip install webdriver_manager
 
+      - name: Instalar o Google Chrome
+        run: |
+          wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_114.0.5735.90-1_amd64.deb
+          sudo dpkg -i google-chrome-stable_114.0.5735.90-1_amd64.deb
+          sudo apt-get install -f  # Para resolver dependências
+
       - name: Instalar o ChromeDriver
         run: |
-          wget https://chromedriver.storage.googleapis.com/116.0.5845.96/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
+          LATEST_CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          curl -sS -o chromedriver.zip https://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+          unzip chromedriver.zip
           chmod +x chromedriver
           sudo mv chromedriver /usr/local/bin/
-
-
-
-          #LATEST_CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
-          #curl -sS -o chromedriver.zip https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/116.0.5845.96/linux64/chrome-linux64.zip
-          #unzip chromedriver.zip
-          #chmod +x chromedriver
-          #sudo mv chromedriver /usr/local/bin/
 
       - name: Executar testes
         run: python tests/test_amazon.py
