@@ -68,3 +68,4 @@ test.test_qainiciante()
 
 # Teste 2: Realiza a busca do ebook Manual do QAINICIANTE
 test.test_manualqa()
+
