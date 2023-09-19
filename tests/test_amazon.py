@@ -58,11 +58,8 @@ class AmazonTest:
         self.elements.botao_lupa()
         time.sleep(2)
         self.elements.manual_qa()
-        self.elements.adicionar_carrinho()
-        assert "Adicionado ao carrinho"
-        screenshot_path = os.path.join(caminho_destino, 'screenshot4.png')
-        self.driver.save_screenshot(screenshot_path)
-        self.elements.fechar()
+        self.elements.verficar_one_clique_carrinho
+
 
 test = AmazonTest()
 
