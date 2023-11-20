@@ -10,7 +10,7 @@ diretorio_atual = os.getcwd()
 # Defina o nome da pasta de destino dentro do seu diretorio
 nome_pasta = 'screenshot'
 
-# Crie o caminho completo para a pasta de destino
+# Crie o caminho completo para a pasta de destino no seu diretorio
 caminho_destino = os.path.join(diretorio_atual, nome_pasta)
 
 #mapeamento dos elementos da tela de inicio, pesquisa e tela dos ebooks
