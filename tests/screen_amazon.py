@@ -7,7 +7,7 @@ from selenium.webdriver.common.keys import Keys
 
 diretorio_atual = os.getcwd()
 
-# Defina o nome da pasta de destino
+# Defina o nome da pasta de destino dentro do seu diretorio
 nome_pasta = 'screenshot'
 
 # Crie o caminho completo para a pasta de destino
