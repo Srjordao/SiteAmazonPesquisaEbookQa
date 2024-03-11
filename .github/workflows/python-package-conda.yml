@@ -31,7 +31,7 @@ jobs:
           pip install selenium
           pip install webdriver_manager
           pip install pytesseract
-          pipi install cv2
+          pip install cv2
 
 
       - name: Instalar o Google Chrome
