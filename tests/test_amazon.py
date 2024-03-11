@@ -33,7 +33,7 @@ class AmazonTest:
         self.driver = webdriver.Chrome(options=chrome_options)
 
         #caminho usado para rodar local
-        self.driver = webdriver.Chrome('C:\Tools\chromedriver.exe')
+        #self.driver = webdriver.Chrome('C:\Tools\chromedriver.exe')
         self.driver.get("https://www.amazon.com.br/")
         self.driver.maximize_window()
         self.elements = Elements(self.driver)
