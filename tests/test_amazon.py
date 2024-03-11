@@ -1,5 +1,8 @@
+
 import os
 import time
+import pytesseract
+import cv2
 
 
 from selenium import webdriver
@@ -30,10 +33,44 @@ class AmazonTest:
         self.driver = webdriver.Chrome(options=chrome_options)
 
         #caminho usado para rodar local
-        #self.driver = webdriver.Chrome('C:\Tools\chromedriver.exe')
+        self.driver = webdriver.Chrome('C:\Tools\chromedriver.exe')
         self.driver.get("https://www.amazon.com.br/")
         self.driver.maximize_window()
         self.elements = Elements(self.driver)
+
+        # Verificar se o CAPTCHA está presente na página
+        captcha_present = self.is_captcha_present()
+        
+        if captcha_present:
+            # Resolver o CAPTCHA automaticamente
+            captcha_text = self.solve_captcha()
+            print("CAPTCHA resolvido:", captcha_text)
+        
+        # Continue com as etapas automatizadas do teste
+        # Exemplo: Interagir com os elementos da página usando self.elements
+        
+    def is_captcha_present(self):
+        try:
+            # Tenta localizar o elemento do CAPTCHA na página
+            captcha_element = self.driver.find_element_by_xpath('//*[@id="auth-captcha-image"]')
+            return True
+        except:
+            # Se o elemento do CAPTCHA não for encontrado, retorna False
+            return False
+
+    def solve_captcha(self):
+        # Captura uma screenshot da área onde o CAPTCHA está
+        screenshot_path = "captcha_screenshot.png"
+        self.driver.save_screenshot(screenshot_path)
+        
+        # Carrega a imagem do CAPTCHA
+        captcha_image = cv2.imread(screenshot_path)
+        
+        # Usa OCR (Reconhecimento Óptico de Caracteres) para extrair o texto do CAPTCHA
+        captcha_text = pytesseract.image_to_string(captcha_image)
+        
+        return captcha_text
+
 
     # realiza a busca do primeiro ebook e tira print
     def test_qainiciante(self):
