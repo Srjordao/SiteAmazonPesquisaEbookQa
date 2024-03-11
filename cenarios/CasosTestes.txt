@@ -19,3 +19,4 @@ User story:
     Quando clicar em pesquisar 
     Entao primeiro resultado deve ser o livro manual do qainiciante
     E ao acessar a pagina devo visualizar as opcoes de ebook e capa comum
+
