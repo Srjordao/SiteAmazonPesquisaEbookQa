@@ -24,8 +24,8 @@ jobs:
           message: |
             Workflow: ${{ env.WORKFLOW_NAME }} 💻
             Evento: ${{ github.event.workflow_run.event }}
-            A esteira foi executada com sucesso ✅
-            para esse repositório https://github.com/Srjordao/SiteAmazonPesquisaEbookQa
+            Status: A esteira foi executada com sucesso ✅
+            Repositório: https://github.com/Srjordao/SiteAmazonPesquisaEbookQa
 
 
       - name: Send Telegram notification - Failure
@@ -37,5 +37,5 @@ jobs:
           message: |
             Workflow: ${{ env.WORKFLOW_NAME }} 💻
             Evento: ${{ github.event.workflow_run.event }}
-            A esteira falhou ❌
-            para esse repositório https://github.com/Srjordao/SiteAmazonPesquisaEbookQa
+            Status: A esteira falhou ❌
+            Repositório: https://github.com/Srjordao/SiteAmazonPesquisaEbookQa
