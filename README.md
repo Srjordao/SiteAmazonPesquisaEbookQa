@@ -10,3 +10,7 @@ Além disso, foi implementada uma pipeline de integração contínua utilizando 
 - Python ✅
 - Biblioteca Selenium ✅
 - WebDriver do Selenium ✅
+
+***Link dos produtos pesquisados:***
+- https://www.amazon.com.br/gp/product/B0B7GMVYJS?ref_=dbs_p_pwh_rwt_cpsb_cl_0&storeType=ebooks
+- https://www.amazon.com.br/Manual-QAINICIANTE-implementar-qualidade-software-ebook/dp/B0C2X172QC/?_encoding=UTF8&pd_rd_w=NxZCe&content-id=amzn1.sym.ca21ea20-e0a6-4fcd-9709-8136382a6f66%3Aamzn1.symc.d10b1e54-47e4-4b2a-b42d-92fe6ebbe579&pf_rd_p=ca21ea20-e0a6-4fcd-9709-8136382a6f66&pf_rd_r=M62PHYSHQDNNWAPKYMN4&pd_rd_wg=pZFOW&pd_rd_r=66d02168-0e70-48de-8f1b-e8db9a9f2706&ref_=pd_hp_d_atf_ci_mcx_mr_hp_atf_m
