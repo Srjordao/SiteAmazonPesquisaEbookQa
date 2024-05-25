@@ -1,4 +1,4 @@
-# 🚀 Pesquisa de eBooks Automatizada com Python e Selenium 📚
+#Pesquisa de eBooks Automatizada com Python e Selenium 📚
 
 Este projeto em Python foi desenvolvido para automatizar a busca de eBooks na Amazon, capturando screenshots e informações relevantes para análise. Utilizando a poderosa biblioteca Selenium, é possível interagir de forma programática com o navegador web, executando todas as etapas do processo de automação.
 
