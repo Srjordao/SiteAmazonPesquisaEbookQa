@@ -1,15 +1,12 @@
-Pesquisa Ebooks QAINICIANTE 🚀
+Pesquisa de eBooks Automatizada com Python e Selenium 🚀
 
-Este projeto em Python tem como objetivo automatizar a captura de screenshots e a pesquisa de eBooks na Amazon. Ele é construído utilizando a biblioteca Selenium, que permite interagir com um navegador web de forma programática, e utiliza um pipeline para realizar as etapas do processo de automação.
+Este projeto em Python foi desenvolvido para automatizar a busca de eBooks na Amazon, capturando screenshots e informações relevantes para análise. Utilizando a poderosa biblioteca Selenium, é possível interagir de forma programática com o navegador web, executando todas as etapas do processo de automação.
 
-A automação consiste em realizar a pesquisa de eBooks na Amazon, tirar screenshots das páginas de resultados e capturar informações relevantes para análise posterior. O projeto utiliza o WebDriver do Selenium para abrir o navegador, navegar até a página da Amazon, inserir termos de pesquisa, clicar em botões e capturar screenshots.
+A automação abrange desde a pesquisa de eBooks na Amazon até a captura de screenshots das páginas de resultados. O projeto utiliza o WebDriver do Selenium para abrir o navegador, navegar até a página da Amazon, inserir os termos de pesquisa e clicar nos botões necessários, garantindo uma experiência de automação robusta.
 
-Além disso, foi implementada uma pipeline utilizando o GitActions para automatizar o processo de integração contínua. Essa pipeline executa os testes automatizados do projeto após cada commit no repositório, garantindo a qualidade do código. Após a conclusão dos testes, o GitActions envia notificações para um bot no Telegram, informando se os testes foram bem-sucedidos ou não. Essa integração contínua facilita a identificação rápida de problemas e contribui para a manutenção eficiente do projeto.
+Além disso, foi implementada uma pipeline de integração contínua utilizando o GitActions. Esta pipeline executa os testes automatizados do projeto após cada commit no repositório, assegurando a qualidade do código. Após a conclusão dos testes, o GitActions envia notificações para um bot no Telegram, proporcionando feedback imediato sobre o sucesso ou falha dos testes. Essa integração contínua é fundamental para identificar rapidamente problemas e manter a eficiência do projeto.
 
-Recursos e Tecnologias utilizadas:
-
-Python ✅
-
-Biblioteca Selenium ✅
-
-WebDriver do Selenium ✅
+Recursos e Tecnologias Utilizadas:
+- Python ✅
+- Biblioteca Selenium ✅
+- WebDriver do Selenium ✅
