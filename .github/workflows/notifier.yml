@@ -22,11 +22,10 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            Workflow: ${{ env.WORKFLOW_NAME }} 💻
-            Evento: ${{ github.event.workflow_run.event }}
-            Status: A esteira foi executada com sucesso ✅
-            Repositório: https://github.com/Srjordao/SiteAmazonPesquisaEbookQa
-
+            🚀 Workflow: ${{ env.WORKFLOW_NAME }} 💻
+            📅 Evento: ${{ github.event.workflow_run.event }}
+            ✅ Status: A esteira foi executada com sucesso ✅
+            📂 Repositório: https://github.com/Srjordao/SiteAmazonPesquisaEbookQa
 
       - name: Send Telegram notification - Failure
         if: ${{ github.event.workflow_run.conclusion == 'failure' }}
@@ -35,7 +34,8 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            Workflow: ${{ env.WORKFLOW_NAME }} 💻
-            Evento: ${{ github.event.workflow_run.event }}
-            Status: A esteira falhou ❌
-            Repositório: https://github.com/Srjordao/SiteAmazonPesquisaEbookQa
+            🚀 Workflow: ${{ env.WORKFLOW_NAME }} 💻
+            📅 Evento: ${{ github.event.workflow_run.event }}
+            ⚠️ Status: A esteira falhou ❌
+            📂 Repositório: https://github.com/Srjordao/SiteAmazonPesquisaEbookQa
+
