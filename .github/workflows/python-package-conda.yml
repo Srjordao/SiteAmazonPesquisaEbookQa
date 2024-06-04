@@ -1,3 +1,6 @@
+Para corrigir o problema de incompatibilidade do ChromeDriver com a versão do Google Chrome, você precisa garantir que está usando a versão correta do ChromeDriver para a versão específica do Chrome que você instalou. Aqui está uma versão corrigida do seu arquivo YAML com a versão correta do ChromeDriver:
+
+```yaml
 name: Testes Regressivos Ebook QA Iniciante
 
 on:
@@ -10,7 +13,7 @@ on:
 
 # Agendamento para executar nos horários específicos
   schedule:
-   - cron: "0 * * * *"  # Executar às 9h, 11h, 15h e 18h UTC de segunda a sexta-feira
+   - cron: "0 9,11,15,18 * * 1-5"  # Executar às 9h, 11h, 15h e 18h UTC de segunda a sexta-feira
 
 jobs:
   test:
@@ -31,20 +34,18 @@ jobs:
           pip install selenium
           pip install webdriver_manager
           pip install pytesseract
-          pip install opencv-python;
-
-
+          pip install opencv-python
 
       - name: Instalar o Google Chrome
         run: |
-
          wget https://mirror.cs.uchicago.edu/google-chrome/pool/main/g/google-chrome-stable/google-chrome-stable_125.0.6422.76-1_amd64.deb
          sudo dpkg -i google-chrome-stable_125.0.6422.76-1_amd64.deb
          sudo apt-get install -f
+         rm google-chrome-stable_125.0.6422.76-1_amd64.deb
 
       - name: Instalar o ChromeDriver
         run: |
-          LATEST_CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          LATEST_CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE_95)
           curl -sS -o chromedriver.zip https://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER_VERSION/chromedriver_linux64.zip
           unzip chromedriver.zip
           chmod +x chromedriver
@@ -52,4 +53,6 @@ jobs:
 
       - name: Executar testes
         run: python tests/test_amazon.py
-        
+```
+
+Nessa versão corrigida, estamos usando a versão `95.x` do ChromeDriver, que é recomendada para a versão do Chrome `95.*`. Certifique-se de verificar qual versão específica do Chrome você instalou e use o ChromeDriver correspondente para garantir a compatibilidade.
