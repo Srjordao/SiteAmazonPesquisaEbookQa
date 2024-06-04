@@ -106,6 +106,3 @@ test.test_qainiciante()
 
 # Teste 2: Realiza a busca do ebook Manual do QAINICIANTE
 test.test_manualqa()
-```
-
-Nesta versão do código, usamos a biblioteca `Pillow` para abrir a imagem do captcha, em vez de usar `cv2`. Também aguardamos explicitamente a presença do elemento de captcha na página antes de tentar resolvê-lo, usando `WebDriverWait` e `expected_conditions`.
