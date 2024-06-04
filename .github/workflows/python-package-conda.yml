@@ -35,18 +35,27 @@ jobs:
 
       - name: Instalar o Google Chrome
         run: |
-         wget https://mirror.cs.uchicago.edu/google-chrome/pool/main/g/google-chrome-stable/google-chrome-stable_125.0.6422.76-1_amd64.deb
-         sudo dpkg -i google-chrome-stable_125.0.6422.76-1_amd64.deb
-         sudo apt-get install -f
-         rm google-chrome-stable_125.0.6422.76-1_amd64.deb
+          wget https://mirror.cs.uchicago.edu/google-chrome/pool/main/g/google-chrome-stable/google-chrome-stable_125.0.6422.76-1_amd64.deb
+          sudo dpkg -i google-chrome-stable_125.0.6422.76-1_amd64.deb
+          sudo apt-get install -f
+          rm google-chrome-stable_125.0.6422.76-1_amd64.deb
+
+      - name: Obter a versão do Google Chrome
+        id: get-chrome-version
+        run: |
+          CHROME_VERSION=$(google-chrome --version | grep -oP '(?<=Google Chrome )[^ ]+')
+          echo "CHROME_VERSION=${CHROME_VERSION}" >> $GITHUB_ENV
+          echo "Versão do Google Chrome: $CHROME_VERSION"
 
       - name: Instalar o ChromeDriver
         run: |
-          LATEST_CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
-          wget https://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+          CHROME_VERSION=${{ env.CHROME_VERSION }}
+          CHROME_DRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json" | jq -r --arg CHROME_VERSION "$CHROME_VERSION" '.versions[] | select(.version==$CHROME_VERSION) | .downloads.chromedriver[] | select(.platform=="linux64").url')
+          wget $CHROME_DRIVER_VERSION -O chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           chmod +x chromedriver
           sudo mv chromedriver /usr/local/bin/
-
+          rm chromedriver_linux64.zip
+          
       - name: Executar testes
         run: python tests/test_amazon.py
