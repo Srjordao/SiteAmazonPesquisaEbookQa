@@ -39,6 +39,10 @@ jobs:
          sudo dpkg -i google-chrome-stable_125.0.6422.76-1_amd64.deb
          sudo apt-get install -f
          rm google-chrome-stable_125.0.6422.76-1_amd64.deb
+         
+      - name: Remover o ChromeDriver antigo
+        run: |
+            sudo rm /usr/local/bin/chromedriver
 
       - name: Instalar o ChromeDriver
         run: |
