@@ -1,13 +1,17 @@
+Para resolver o captcha de forma mais eficaz, você pode tentar uma abordagem usando bibliotecas Python específicas para manipulação de imagens e reconhecimento de texto, além de utilizar técnicas de espera explícitas para aguardar a presença do captcha. Aqui está uma versão modificada do seu código, utilizando a biblioteca `Pillow` para manipulação de imagens e aguardando explicitamente a presença do captcha:
 
+```python
 import os
 import time
+from PIL import Image
 import pytesseract
-import cv2
-
 
 from selenium import webdriver
 from screen_amazon import Elements
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 diretorio_atual = os.getcwd()
 
@@ -39,38 +43,39 @@ class AmazonTest:
         self.elements = Elements(self.driver)
 
         # Verificar se o CAPTCHA está presente na página
-        captcha_present = self.is_captcha_present()
-        
-        if captcha_present:
-            # Resolver o CAPTCHA automaticamente
-            captcha_text = self.solve_captcha()
-            print("CAPTCHA resolvido:", captcha_text)
+        self.is_captcha_present()
         
         # Continue com as etapas automatizadas do teste
         # Exemplo: Interagir com os elementos da página usando self.elements
         
     def is_captcha_present(self):
         try:
-            # Tenta localizar o elemento do CAPTCHA na página
-            captcha_element = self.driver.find_element_by_xpath('//*[@id="auth-captcha-image"]')
-            return True
+            # Aguarde a presença do elemento do CAPTCHA na página
+            WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="auth-captcha-image"]')))
+            
+            # Se o elemento do CAPTCHA for encontrado, resolve-o automaticamente
+            self.solve_captcha()
         except:
-            # Se o elemento do CAPTCHA não for encontrado, retorna False
-            return False
+            # Se o elemento do CAPTCHA não for encontrado, continue com o teste
+            pass
 
     def solve_captcha(self):
+        # Aguarde um momento para garantir que o captcha esteja totalmente carregado
+        time.sleep(2)
+        
         # Captura uma screenshot da área onde o CAPTCHA está
         screenshot_path = "captcha_screenshot.png"
         self.driver.save_screenshot(screenshot_path)
         
-        # Carrega a imagem do CAPTCHA
-        captcha_image = cv2.imread(screenshot_path)
+        # Abra a imagem do CAPTCHA usando PIL (Pillow)
+        captcha_image = Image.open(screenshot_path)
         
-        # Usa OCR (Reconhecimento Óptico de Caracteres) para extrair o texto do CAPTCHA
+        # Use OCR (Reconhecimento Óptico de Caracteres) para extrair o texto do CAPTCHA
         captcha_text = pytesseract.image_to_string(captcha_image)
         
-        return captcha_text
-
+        print("CAPTCHA resolvido:", captcha_text)
+        
+        # Se desejar, você pode adicionar código aqui para preencher automaticamente o campo de captcha no formulário web.
 
     # realiza a busca do primeiro ebook e tira print
     def test_qainiciante(self):
@@ -97,7 +102,6 @@ class AmazonTest:
         self.elements.manual_qa()
         self.elements.verficar_one_clique_carrinho
 
-
 test = AmazonTest()
 
 # Teste 1: Realiza a busca do ebook QAINICIANTE
@@ -105,3 +109,6 @@ test.test_qainiciante()
 
 # Teste 2: Realiza a busca do ebook Manual do QAINICIANTE
 test.test_manualqa()
+```
+
+Nesta versão do código, usamos a biblioteca `Pillow` para abrir a imagem do captcha, em vez de usar `cv2`. Também aguardamos explicitamente a presença do elemento de captcha na página antes de tentar resolvê-lo, usando `WebDriverWait` e `expected_conditions`.
