@@ -1,6 +1,3 @@
-Para corrigir o problema de incompatibilidade do ChromeDriver com a versão do Google Chrome, você precisa garantir que está usando a versão correta do ChromeDriver para a versão específica do Chrome que você instalou. Aqui está uma versão corrigida do seu arquivo YAML com a versão correta do ChromeDriver:
-
-```yaml
 name: Testes Regressivos Ebook QA Iniciante
 
 on:
@@ -53,6 +50,3 @@ jobs:
 
       - name: Executar testes
         run: python tests/test_amazon.py
-```
-
-Nessa versão corrigida, estamos usando a versão `95.x` do ChromeDriver, que é recomendada para a versão do Chrome `95.*`. Certifique-se de verificar qual versão específica do Chrome você instalou e use o ChromeDriver correspondente para garantir a compatibilidade.
