@@ -1,4 +1,3 @@
-Para resolver o captcha de forma mais eficaz, você pode tentar uma abordagem usando bibliotecas Python específicas para manipulação de imagens e reconhecimento de texto, além de utilizar técnicas de espera explícitas para aguardar a presença do captcha. Aqui está uma versão modificada do seu código, utilizando a biblioteca `Pillow` para manipulação de imagens e aguardando explicitamente a presença do captcha:
 
 ```python
 import os
