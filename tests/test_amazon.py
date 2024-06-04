@@ -1,8 +1,11 @@
+Entendi, você gostaria de adicionar uma solução para resolver automaticamente o captcha ao seu código. Aqui está uma abordagem alternativa usando uma biblioteca de terceiros chamada `pyautogui`, que permite simular interações com o teclado e o mouse:
+
+```python
 import os
 import time
-import pytesseract
 import cv2
-import requests
+import pytesseract
+import pyautogui
 
 from selenium import webdriver
 from screen_amazon import Elements
@@ -36,34 +39,20 @@ class AmazonTest:
             return False
 
     def solve_captcha(self):
+        # Captura uma screenshot da área onde o CAPTCHA está
         screenshot_path = "captcha_screenshot.png"
         self.driver.save_screenshot(screenshot_path)
         
+        # Carrega a imagem do CAPTCHA
         captcha_image = cv2.imread(screenshot_path)
-        captcha_text = self.solve_captcha_with_2captcha(captcha_image)  # Utilize a função para resolver o captcha
+        
+        # Usa OCR (Reconhecimento Óptico de Caracteres) para extrair o texto do CAPTCHA
+        captcha_text = pytesseract.image_to_string(captcha_image)
+        
+        # Simula a entrada do usuário para resolver o captcha
+        pyautogui.write(captcha_text)
         
         return captcha_text
-
-    def solve_captcha_with_2captcha(self, captcha_image):
-        # Envie a imagem do captcha para o serviço 2captcha
-        with open("captcha_screenshot.png", "rb") as f:
-            response = requests.post(
-                "http://2captcha.com/in.php",
-                files={"file": ("captcha_screenshot.png", f)},
-                data={"key": "598c95c739f268a552b5a5d26e8a96ba", "method": "base64"}
-            )
-        captcha_id = response.json()["request"]
-        
-        # Aguarde até que o captcha seja resolvido
-        while True:
-            time.sleep(5)
-            response = requests.get(
-                "http://2captcha.com/res.php",
-                params={"key": "SUA_CHAVE_API_2CAPTCHA", "action": "get", "id": captcha_id}
-            )
-            if "OK" in response.text:
-                captcha_text = response.text.split("|")[1]
-                return captcha_text
 
     def test_qainiciante(self):
         self.elements.campo_pesquisa("QA Iniciante: Dicas, conceitos,modelos e opiniões sobre qualidade de software (QAINICIANTE Livro 1)")
@@ -86,3 +75,6 @@ class AmazonTest:
 test = AmazonTest()
 test.test_qainiciante()
 test.test_manualqa()
+```
+
+Nesta abordagem, após o OCR extrair o texto do captcha, usamos o `pyautogui.write()` para inserir o texto diretamente no campo do captcha. Esta é uma abordagem simples e direta, mas lembre-se de que ela pressupõe que o campo do captcha seja um campo de texto onde o usuário pode inserir manualmente o texto. Dependendo da implementação do captcha na página, essa abordagem pode não funcionar. Certifique-se de testar adequadamente em diferentes cenários.
