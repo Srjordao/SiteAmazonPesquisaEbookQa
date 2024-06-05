@@ -8,7 +8,7 @@ on:
     branches:
       - main
 
-# Agendamento para executar nos horários específicos
+  # Agendamento para executar nos horários específicos
   schedule:
    - cron: "0 9,11,15,18 * * 1-5"  # Executar às 9h, 11h, 15h e 18h UTC de segunda a sexta-feira
 
@@ -50,12 +50,12 @@ jobs:
       - name: Instalar o ChromeDriver
         run: |
           CHROME_VERSION=${{ env.CHROME_VERSION }}
-          CHROME_DRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json" | jq -r --arg CHROME_VERSION "$CHROME_VERSION" '.versions[] | select(.version==$CHROME_VERSION) | .downloads.chromedriver[] | select(.platform=="linux64").url')
-          wget $CHROME_DRIVER_VERSION -O chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          chmod +x chromedriver
-          sudo mv chromedriver /usr/local/bin/
-          rm chromedriver_linux64.zip
-          
+          CHROME_DRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json" | jq -r --arg CHROME_VERSION "$CHROME_VERSION" '.versions[] | select(.version==$CHROME_VERSION) | .downloads.chromedriver[] | select(.platform=="linux64").url')
+          wget $CHROME_DRIVER_URL -O chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip -d chromedriver-linux64
+          chmod +x chromedriver-linux64/chromedriver
+          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
+          rm -r chromedriver_linux64.zip chromedriver-linux64
+
       - name: Executar testes
         run: python tests/test_amazon.py
