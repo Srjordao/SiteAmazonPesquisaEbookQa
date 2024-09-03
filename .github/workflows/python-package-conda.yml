@@ -3,14 +3,14 @@ name: Testes Regressivos Ebook QA Iniciante
 on:
   push:
     branches:
-      - main  # Altere para a branch em que deseja executar os testes
+      - main
   pull_request:
     branches:
       - main
-
-  # Agendamento para executar nos horários específicos
   schedule:
-   - cron: "0 9,11,15,18 * * 1-5"  # Executar às 9h, 11h, 15h e 18h UTC de segunda a sexta-feira
+    - cron: "10 * * * *"
+    - cron: "13 * * * *"
+    - cron: "17 * * * *"
 
 jobs:
   test:
