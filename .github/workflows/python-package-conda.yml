@@ -9,9 +9,6 @@ on:
       - main
   schedule:
     - cron: "10 * * * *"
-    - cron: "13 * * * *"
-    - cron: "17 * * * *"
-
 jobs:
   test:
     runs-on: ubuntu-latest
