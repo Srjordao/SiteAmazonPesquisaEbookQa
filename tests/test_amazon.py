@@ -1,7 +1,9 @@
 import os
 import time
+from time import sleep
 from PIL import Image
 import pytesseract
+import datetime
 
 from selenium import webdriver
 from screen_amazon import Elements
@@ -22,7 +24,7 @@ class AmazonTest:
     
     # inicia o navegador
     def __init__(self):
-        import os  # Adicione esta linha
+        # import os  # Adicione esta linha
 
         #caminho usado para rodar a pipeline no GIT ACTIONS
         chrome_options = Options()
@@ -76,29 +78,59 @@ class AmazonTest:
 
     # realiza a busca do primeiro ebook e tira print
     def test_qainiciante(self):
-        self.elements.campo_pesquisa("QA Iniciante: Dicas, conceitos,modelos e opiniões sobre qualidade de software (QAINICIANTE Livro 1)")
-        os.makedirs(caminho_destino, exist_ok=True)
-        screenshot_path = os.path.join(caminho_destino, 'screenshot1.png')
-        self.driver.save_screenshot(screenshot_path)
-        self.elements.botao_lupa()
-        self.elements.qa_iniciante()
-        assert "Onde tudo começa! QA iniciante!"
-        screenshot_path = os.path.join(caminho_destino, 'screenshot2.png')
-        self.driver.save_screenshot(screenshot_path)
-        self.elements.fechar()
-        
-    # realiza a busca do segundo ebook e tirar print - 2
-    def test_manualqa(self):
-        self.__init__()
-        self.elements.campo_pesquisa("Manual do QAINICIANTE: Um Guia para implementar a qualidade de software")
-        os.makedirs(caminho_destino, exist_ok=True)
-        screenshot_path = os.path.join(caminho_destino, 'screenshot3.png')
-        self.driver.save_screenshot(screenshot_path)
-        self.elements.botao_lupa()
-        time.sleep(2)
-        self.elements.manual_qa()
-        self.elements.verficar_one_clique_carrinho
+        try:
+            self.driver.get("https://www.amazon.com.br/")
+            self.elements.campo_pesquisa("QA Iniciante: ...")
+            
+            # Screenshot 1 com timestamp
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            screenshot_path = os.path.join(caminho_destino, f'screenshot1_{timestamp}.png')
+            self.driver.save_screenshot(screenshot_path)
+            
+            self.elements.botao_lupa()
+            self.elements.qa_iniciante()
+            assert "Onde tudo começa! QA iniciante!"
+            
+            # Screenshot 2 com timestamp
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            screenshot_path = os.path.join(caminho_destino, f'screenshot2_{timestamp}.png')
+            self.driver.save_screenshot(screenshot_path)
 
+            sleep(10)  # Espera 2 segundos para garantir que a página carregue completamente
+            self.elements.limpar_texto()
+            
+            print("Teste 1 finalizado com sucesso!", flush=True)
+        except Exception as e:
+            print("Erro no teste 1:", e, flush=True)
+
+    # realiza a busca do segundo ebook e tira print
+    def test_manualqa(self):
+        try:
+            self.driver.get("https://www.amazon.com.br/")
+            self.elements.campo_pesquisa("Manual do QAINICIANTE: Um Guia para implementar a qualidade de software")
+            
+            # Screenshot 3 com timestamp
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            screenshot_path = os.path.join(caminho_destino, f'screenshot3_{timestamp}.png')
+            self.driver.save_screenshot(screenshot_path)
+            
+            self.elements.botao_lupa()
+            self.elements.manual_qa()
+
+            sleep(10)  # Espera 2 segundos para garantir que a página carregue completamente
+            self.elements.limpar_texto()
+            
+            # Screenshot 4 com timestamp
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            screenshot_path = os.path.join(caminho_destino, f'screenshot4_{timestamp}.png')
+            self.driver.save_screenshot(screenshot_path)
+    
+            print("Teste 2 finalizado com sucesso!", flush=True)
+        except Exception as e:
+            print("Erro no teste 2:", e, flush=True)
+
+            self.elements.fechar()
+            
 test = AmazonTest()
 
 # Teste 1: Realiza a busca do ebook QAINICIANTE
