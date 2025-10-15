@@ -61,12 +61,9 @@ jobs:
         
             wget $CHROME_DRIVER_URL -O chromedriver_linux64.zip
             unzip chromedriver_linux64.zip -d chromedriver-linux64
-            chmod +x chromedriver-linux64/chromedriver
-            sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
+            chmod +x chromedriver-linux64/chromedriver-linux64/chromedriver
+            sudo mv chromedriver-linux64/chromedriver-linux64/chromedriver /usr/local/bin/
             rm -r chromedriver_linux64.zip chromedriver-linux64
-
-
-
 
 
       - name: Executar testes
