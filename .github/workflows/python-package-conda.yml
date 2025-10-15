@@ -47,25 +47,24 @@ jobs:
 
       - name: Instalar o ChromeDriver
         run: |
-          CHROME_VERSION=${{ env.CHROME_VERSION }}
+            CHROME_VERSION=${{ env.CHROME_VERSION }}
+        
+            # Tenta pegar a versão definida
+            CHROME_DRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json" \
+              | jq -r --arg CHROME_VERSION "$CHROME_VERSION" \
+              '.versions[] | select(.version==$CHROME_VERSION) | .downloads.chromedriver[] | select(.platform=="linux64").url')
+        
+            # Se não encontrar, pega a versão recomendada para Chrome 141.*
+            if [ -z "$CHROME_DRIVER_URL" ]; then
+              CHROME_DRIVER_URL="https://storage.googleapis.com/chrome-for-testing-public/141.0.7390.78/linux64/chromedriver-linux64.zip"
+            fi
+        
+            wget $CHROME_DRIVER_URL -O chromedriver_linux64.zip
+            unzip chromedriver_linux64.zip -d chromedriver-linux64
+            chmod +x chromedriver-linux64/chromedriver
+            sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
+            rm -r chromedriver_linux64.zip chromedriver-linux64
 
-          CHROME_DRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json" \
-            | jq -r --arg CHROME_VERSION "$CHROME_VERSION" \
-            '.versions[] 
-             | select(.version==$CHROME_VERSION) 
-             | .downloads.chromedriver[] 
-             | select(.platform=="linux64").url')
-          
-          if [ -z "$CHROME_DRIVER_URL" ]; then
-            echo "❌ Não foi encontrado ChromeDriver compatível com $CHROME_VERSION"
-            exit 1
-          fi
-          
-          wget $CHROME_DRIVER_URL -O chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip -d chromedriver-linux64
-          chmod +x chromedriver-linux64/chromedriver-linux64/chromedriver
-          sudo mv chromedriver-linux64/chromedriver-linux64/chromedriver /usr/local/bin/
-          rm -r chromedriver_linux64.zip chromedriver-linux64
 
 
 
